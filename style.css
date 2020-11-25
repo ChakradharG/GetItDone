@@ -3,17 +3,22 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+body {
+	background-color: #51f093;
+}
 .topbar {
 	background-color: black;
 	font-family: Helvetica;
 }
 #logo {
+	padding-left: 50px;
 	color: #51f093;
 	width: 50%;
 	float: left;
 	text-align: left;
 }
 #about {
+	padding-right: 50px;
 	color: #32d37a;
 	width: 50%;
 	float: right;
