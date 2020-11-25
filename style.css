@@ -1,0 +1,17 @@
+header {
+	background-color: black;
+	color: white;
+}
+#logo {
+	color: #51f093;
+	width: 50%;
+	float: left;
+	text-align: left;
+}
+#about {
+	padding: 20px
+	color: #32d37a;
+	width: 50%;
+	float: right;
+	text-align: right;
+}
