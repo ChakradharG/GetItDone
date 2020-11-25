@@ -1,6 +1,6 @@
-header {
+.topbar {
 	background-color: black;
-	color: white;
+	font-family: Helvetica;
 }
 #logo {
 	color: #51f093;
@@ -9,7 +9,6 @@ header {
 	text-align: left;
 }
 #about {
-	padding: 20px
 	color: #32d37a;
 	width: 50%;
 	float: right;
