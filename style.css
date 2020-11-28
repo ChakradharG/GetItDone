@@ -3,24 +3,35 @@
 	margin: 0;
 	box-sizing: border-box;
 }
-body {
-	background-color: #51f093;
+.main{
+	height: 100vh;
+	background-color: #32d37a;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
-.topbar {
-	background-color: black;
-	font-family: Helvetica;
+.sidebar, .content{
+	display: flex;
+	flex-direction: column;
 }
-#logo {
-	padding-left: 50px;
-	color: #51f093;
-	width: 50%;
-	float: left;
-	text-align: left;
+.sidebar{
+	height: 100%;
+	flex-basis: 225px;
 }
-#about {
-	padding-right: 50px;
-	color: #32d37a;
-	width: 50%;
-	float: right;
-	text-align: right;
+.content{
+	background-color: #f6f6f8;
+	height: 100%;
+	flex-basis: calc(100% - 225px);
+}
+
+.logo, .header{
+	flex-basis: 50px;
+	padding: 10px 15px;
+	background: inherit;
+	border-bottom: 1px solid #b4b4b536;
+}
+.logo{
+	font-size: 24px;
+	text-align: center;
 }
