@@ -1,37 +1,54 @@
+@font-face{
+	font-family: "b612";
+	src: url(../GetItDone/wireframe/background-with-pastel-colored-rainbow-low-poly-design/B612/B612-Regular.ttf) format("truetype");
+}
+
 *{
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
 }
+
+
 .main{
 	height: 100vh;
-	background-color: #32d37a;
+	background-image: url("../GetItDone/wireframe/background-with-pastel-colored-rainbow-low-poly-design/background-3.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
 	width: 100%;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
 }
-.sidebar, .content{
-	display: flex;
-	flex-direction: column;
+.header{
+	height: 50px;
+	border-bottom: 2px solid white ;
 }
-.sidebar{
+.container{
 	height: 100%;
-	flex-basis: 225px;
+	padding: 20px 20%;
 }
-.content{
-	background-color: #f6f6f8;
-	height: 100%;
-	flex-basis: calc(100% - 225px);
+.to-do-list{
+	max-height: 500px;
 }
-
-.logo, .header{
-	flex-basis: 50px;
-	padding: 10px 15px;
-	background: inherit;
-	border-bottom: 1px solid #b4b4b536;
-}
-.logo{
-	font-size: 24px;
-	text-align: center;
+.task-card{
+	/* border-radius: 5px; */
+	padding: 8px 12px;
+	color: #a5a0a0;
+	border-radius: 4px;
+    background-color: #fff;
+    background-color: var(--mdc-theme-surface, #fff);
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0,0,0,.12);
+	/* background: #ffffff;
+	box-shadow:
+  0 0.5px 1.2px rgba(0, 0, 0, 0.011),
+  0 1.1px 2.6px rgba(0, 0, 0, 0.016),
+  0 1.8px 4.4px rgba(0, 0, 0, 0.019),
+  0 2.7px 6.6px rgba(0, 0, 0, 0.022),
+  0 3.9px 9.5px rgba(0, 0, 0, 0.025),
+  0 5.5px 13.5px rgba(0, 0, 0, 0.028),
+  0 7.8px 19.1px rgba(0, 0, 0, 0.031),
+  0 11.3px 27.7px rgba(0, 0, 0, 0.034),
+  0 17.4px 42.8px rgba(0, 0, 0, 0.039),
+  0 31px 76px rgba(0, 0, 0, 0.05); */
+  margin-top: 10px;
+  font-family: "b612";
 }
