@@ -1,6 +1,6 @@
 @font-face{
 	font-family: "b612";
-	src: url(../GetItDone/wireframe/background-with-pastel-colored-rainbow-low-poly-design/B612/B612-Regular.ttf) format("truetype");
+	src: url(./wireframe/background-with-pastel-colored-rainbow-low-poly-design/B612/B612-Regular.ttf) format("truetype");
 }
 
 *{
@@ -12,7 +12,7 @@
 
 .main{
 	height: 100vh;
-	background-image: url("../GetItDone/wireframe/background-with-pastel-colored-rainbow-low-poly-design/background-3.jpg");
+	background-image: url("./wireframe/background-with-pastel-colored-rainbow-low-poly-design/background-3.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
