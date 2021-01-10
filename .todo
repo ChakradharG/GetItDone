@@ -2,3 +2,9 @@
 [] <ADD> LICENSE
 [] <ADD> Dependencies
 [] <UPDATE> README
+
+[] <ADD>  Delete Functionality.
+[] <ADD>  Update Task Functionality.
+[] <ADD>  Check Task Functionality.
+
+[x] <SELECT>  Select DB to Use. - MongoDB.
