@@ -9,3 +9,13 @@
 [] <ADD>  Check Task Functionality.
 
 [x] <SELECT>  Select DB to Use : MongoDB.
+
+- RoadMap
+
+ [] - Complete Django.
+ [] - Complete Mongo DB.
+ [] - Connect the Cluster to Django.
+ [] - Start with Routes - GET, POST, DELETE, PUT.
+ [] - Start with Functionality.
+ [] - Get data to Front End.
+ [] - Create UI.
