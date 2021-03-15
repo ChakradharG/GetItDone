@@ -3,8 +3,9 @@
 [] <ADD> Dependencies
 [] <UPDATE> README
 
+[] <RES> https://realpython.com/python-api/
 [] <ADD>  Delete Functionality.
 [] <ADD>  Update Task Functionality.
 [] <ADD>  Check Task Functionality.
 
-[x] <SELECT>  Select DB to Use. - MongoDB.
+[x] <SELECT>  Select DB to Use : MongoDB.
