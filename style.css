@@ -31,7 +31,8 @@
 	background-size: cover; */
 	width: 100%;
 }
-.header{
+
+header{
 	height: 50px;
 	border-bottom: 2px solid white ;
 	background: #2e5c5c;
@@ -40,7 +41,7 @@
 	padding-top: 6px;
 }
 
-.header p{
+header p{
 	font-size: 24px;
 	font-family: big-shoulder !important;
 	letter-spacing: 3px; 
