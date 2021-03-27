@@ -3,12 +3,21 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{% block title %}Home{% endblock %}</title>
+	<title>{% block title %}{% endblock %}</title>
+
+	<style>
+		* {
+			background-color: rgb(25, 25, 25);
+			color: rgb(240, 240, 240);
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		}
+	</style>
 </head>
 
 <body>
-	
+	{% block body %}{% endblock %}
 </body>
 
 </html>
