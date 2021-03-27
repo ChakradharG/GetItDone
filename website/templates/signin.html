@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title%}Sign In{% endblock %}
+{% block body %} <!--<form action="#" class="signin">-->
+	<label for="Username">Username
+		<input type="text" id="uname">
+	</label>
+	<br>
+	<label for="password">Password
+		<input type="text" id="pwd">
+	</label>
+	<br>
+	<input type="submit" value="Submit" onclick="window.location.replace('/home');">
+	<br>
+	<br>
+	New User? <input type="button" value="Register" onclick="window.location.href = './signup';">
+<!--</form>--> {% endblock %}
