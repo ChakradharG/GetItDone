@@ -1,3 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
-{% block head %}<script defer src="/static/index.js"></script>{% endblock %}
+{% block head %}
+	<script defer src="/static/index.js"></script>
+	<link rel="stylesheet" href="/static/style.css">
+{% endblock %}
+{% block body %}
+	<div id="to-do-list"></div>
+{% endblock %}

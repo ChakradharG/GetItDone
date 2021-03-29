@@ -1,0 +1,25 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+	background: linear-gradient(90deg, #1f005c, #5b0060, #870160, #ac255e, #ca485c, #e16b5c, #f39060, #ffb56b);
+	color: rgb(240, 240, 240);
+	height: 100%;
+}
+
+#to-do-list {
+	padding: 10px;
+}
+
+.task-card {
+	padding: 8px 12px;
+	color: rgb(240, 240, 240);
+	border-radius: 4px;
+	background-color: rgba(255, 255, 255, 0.281);
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+	margin: 10px 0px;
+}
