@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template
-import os
-import re
 import json
+import re
 
+from flask import Blueprint, render_template
 
 views = Blueprint('views', __name__)
 regExOb = re.compile(r'\[(x?)\] <(.*)> (.*)')
@@ -17,7 +16,8 @@ def tasksToJSON():
 	# if todo: 
 	with (open('.todo', 'r')) as file:
 		for i in file.readlines():
-			if (taskOb := regExOb.match(i)) != None:
+			taskOb = regExOb.match(i)
+			if taskOb:
 				tasksList.append(parseAsTask(taskOb))
 	return json.dumps(tasksList)
 				
