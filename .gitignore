@@ -1,4 +1,6 @@
 /website/__pycache__/
-.env
+/__pycache__/
 /venv
-.idea/sonarlint
+/.idea/
+/website/.idea/
+/.vscode/
