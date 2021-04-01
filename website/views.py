@@ -1,7 +1,7 @@
+from flask import Blueprint, render_template
 import json
 import re
 
-from flask import Blueprint, render_template
 
 views = Blueprint('views', __name__)
 regExOb = re.compile(r'\[(x?)\] <(.*)> (.*)')
