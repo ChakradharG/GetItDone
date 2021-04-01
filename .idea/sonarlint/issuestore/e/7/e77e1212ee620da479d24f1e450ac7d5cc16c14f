@@ -1,7 +1,0 @@
-
-qpython:S117"ZRename this local variable "tasksList" to match the regular expression ^[_a-z][a-z0-9_]*$.(Ί½υ…
-kpython:S1542$"NRename function "getTasks" to match the regular expression ^[a-z_][a-z0-9_]*$.(χ²ξύÿÿÿÿ
-ipython:S1542	"QRename function "parseAsTask" to match the regular expression ^[a-z_][a-z0-9_]*$.(Λ‚±¨
-ipython:S117	"RRename this parameter "taskOb" to match the regular expression ^[_a-z][a-z0-9_]*$.(Λ‚±¨
-ipython:S1542"QRename function "tasksToJSON" to match the regular expression ^[a-z_][a-z0-9_]*$.(ρπή
-zpython:S117"WRename this local variable "taskOb" to match the regular expression ^[_a-z][a-z0-9_]*$.(άεΏÿÿÿÿÿ8χ§³΅/
