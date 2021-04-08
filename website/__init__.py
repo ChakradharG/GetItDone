@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_pymongo import PyMongo
 import os
 import json
 
@@ -11,10 +10,10 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = data['SECRET_KEY']
 app.config['MONGO_URI'] = data['MONGO_URI']
 
-from .views import views
+from .views import views, initDB
 from .auth import auth
 
 app.register_blueprint(views, url_prefix='/')
 app.register_blueprint(auth, url_prefix='/auth')
 
-mongo = PyMongo(app)
+initDB(app)
