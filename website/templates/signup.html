@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block body %} <!--<form action="#" class="signin">-->
+	<form action="/auth/signup" method="post">
+		<div>
+			<label>First Name:</label>
+			<input type="text" name="first_name" placeholder="John" required>
+		</div>
+		<div>
+			<label>Last Name:</label>
+			<input type="text" name="last_name" placeholder="Doe" required>
+		</div>
+		<div>
+			<label>Username:</label>
+			<input type="text" name="username" placeholder="abc" required>
+		</div>
+		<div>
+			<label>Email:</label>
+			<input type="text" name="email" placeholder="abc@gmail.com" required>
+		</div>
+		<div>
+			<label>Password:</label>
+			<input type="password" name="password" placeholder="Enter password" required>
+		</div>
+		<div>
+			<label>Confirm Password:</label>
+			<input type="password" name="cnf_password" placeholder="Confirm password" required>
+		</div>
+		<div>
+			<input type="submit" name="submit" value="Register">
+		</div>
+	</form>
+	Account already Exists? <input type="button" value="Sign In" onclick="window.location.href = './';">
+<!--</form>--> {% endblock %}
