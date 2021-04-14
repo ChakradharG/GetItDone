@@ -9,7 +9,6 @@ def signIn():
 		return render_template('signin.html')
 	elif request.method == 'POST':
 		data = dict(request.form)
-		print("LOGIN")
 		return render_template('home.html')
 
 
@@ -19,5 +18,4 @@ def signUp():
 		return render_template('signup.html')
 	elif request.method == 'POST':
 		data = dict(request.form)
-		print("SIGNUP")
 		return render_template('signin.html')
