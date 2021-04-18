@@ -1,15 +1,17 @@
-from flask_pymongo import PyMongo
+from website import mongo
 
 
-class MongoDB:
-	def __init__(self, app):
-		self.mongo = PyMongo(app)
 
-	def get_user(self):
+class DatabaseModel:
+	def __init__(self):
+		pass
+
+	def get_user(self, user_mail):
 		"""
 		Function to fetch the user_credentials.
 		"""
-		return(list(self.mongo.db.user_details.find({})))
+		return list(mongo.db.user_details.find({"email": user_mail}))
+
 
 	def register_user(self):
 		"""
@@ -40,3 +42,13 @@ class MongoDB:
 		Function to fetch the tasks of the user.
 		"""
 		pass
+
+	def authenticate_user(self, user_mail='', user_password=''):
+		"""
+		Function to authenticate the user.
+		"""
+		is_authorized = False
+		try:
+			print(self.get_user(user_mail))
+		except:
+			print("Error Occurred")

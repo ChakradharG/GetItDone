@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 import json
 import re
-from .models import MongoDB
+from website.security import encrypt_password, check_password
 
 
 views = Blueprint('views', __name__)
