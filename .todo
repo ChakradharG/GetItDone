@@ -9,6 +9,7 @@
 [] <ADD>  Check Task Functionality.
 [] <RES> https://www.youtube.com/watch?v=dam0GPOAvVI&t=2580s (Flask)
 [] <WRITE> auth logic and navigation(redirect from '/') and signup.html
+[] <WRITE> Client-side password encryption
 
 [x] <SELECT>  Select DB to Use : MongoDB.
 

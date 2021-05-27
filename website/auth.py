@@ -19,14 +19,13 @@ def signIn():
 	if request.method == 'GET':
 		return render_template('signin.html')
 	elif request.method == 'POST':
-		# data = dict(request.form)
+		# formData = dict(request.form)
 		return render_template('home.html')
-
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signUp():
 	if request.method == 'GET':
 		return render_template('signup.html')
 	elif request.method == 'POST':
-		# data = dict(request.form)
+		# formData = dict(request.form)
 		return render_template('signin.html')
