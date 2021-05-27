@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 import json
 import re
-from website.security import encrypt_password, check_password
+from .models import DatabaseModel
 
 
 views = Blueprint('views', __name__)
@@ -9,7 +9,7 @@ regExOb = re.compile(r'\[(x?)\] <(.*)> (.*)')
 
 def initDB(app):
 	global db
-	db = MongoDB(app)
+	db = DatabaseModel(app)
 
 def parseAsTask(taskOb):
 	task = {'done': False, 'class': taskOb.group(2), 'cont': taskOb.group(3)}
@@ -25,7 +25,6 @@ def tasksToJSON():
 			if taskOb:
 				tasksList.append(parseAsTask(taskOb))
 	return json.dumps(tasksList)
-				
 
 @views.route('/')
 def landing():
@@ -34,12 +33,6 @@ def landing():
 @views.route('/home')
 def home():
 	return render_template('home.html')
-
-@views.route('/test')
-def test():
-	x = db.get_user()[0]
-	del(x['_id'])
-	return json.dumps(x)
 
 @views.route('/api')
 def getTasks():

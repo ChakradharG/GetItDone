@@ -1,17 +1,15 @@
-from website import mongo
-
+from flask_pymongo import PyMongo
 
 
 class DatabaseModel:
-	def __init__(self):
-		pass
+	def __init__(self, app):
+		self.mongo = PyMongo(app)
 
 	def get_user(self, user_mail):
 		"""
 		Function to fetch the user_credentials.
 		"""
-		return list(mongo.db.user_details.find({"email": user_mail}))
-
+		return(list(self.mongo.db.user_details.find({})))
 
 	def register_user(self):
 		"""
@@ -47,7 +45,7 @@ class DatabaseModel:
 		"""
 		Function to authenticate the user.
 		"""
-		is_authorized = False
+		# is_authorized = False
 		try:
 			print(self.get_user(user_mail))
 		except:
