@@ -23,3 +23,34 @@ body {
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 	margin: 10px 0px;
 }
+
+#add-task {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	outline: none;
+	border: none;
+	font-size: 25px;
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	transition: 0.5s ease;
+}
+
+#add-task:hover {
+	background-color: #5b0060;
+	color: white;
+}
+
+.enter-task, .enter-task-class {
+	border: none;
+	outline: none;
+	background: transparent;
+	color: white;
+	display: block;
+	font-size: 1rem;
+}
+
+.enter-task-class {
+	color: gray;
+}
