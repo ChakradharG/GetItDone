@@ -20,7 +20,8 @@ def signIn():
 		return render_template('signin.html')
 	elif request.method == 'POST':
 		# formData = dict(request.form)
-		return render_template('home.html')
+		# check_password
+		return '<script>window.location.replace("/home")</script>'
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signUp():
