@@ -1,5 +1,8 @@
 from flask import Flask
 import json
+from .views import views, initViewDB
+from .auth import auth, initAuthDB
+from .models import DataBaseHelpers
 
 
 with open('secret.json') as file:
@@ -7,12 +10,10 @@ with open('secret.json') as file:
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = data['SECRET_KEY']
-app.config['MONGO_URI'] = data['MONGO_URI']
-
-from .views import views, initDB
-from .auth import auth
+dbObject = DataBaseHelpers(data['MONGO_URI'])
 
 app.register_blueprint(views, url_prefix='/')
 app.register_blueprint(auth, url_prefix='/auth')
 
-initDB(app)
+initViewDB(dbObject)
+initAuthDB(dbObject)
