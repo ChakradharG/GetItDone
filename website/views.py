@@ -1,30 +1,32 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 import json
 import re
-from .models import DatabaseModel
 
 
 views = Blueprint('views', __name__)
 regExOb = re.compile(r'\[(x?)\] <(.*)> (.*)')
 
-def initDB(app):
-	global db
-	db = DatabaseModel(app)
+def initViewDB(dbObject):
+	global DB
+	DB = dbObject
 
 def parseAsTask(taskOb):
 	task = {'done': False, 'class': taskOb.group(2), 'cont': taskOb.group(3)}
-	if (taskOb.group(1) == 'x'): task['done'] = True
+	if (taskOb.group(1) == 'x'):
+		task['done'] = True
 	return task
 
-def tasksToJSON():
-	tasksList = []
-	# if todo: 
-	with (open('.todo', 'r')) as file:
-		for i in file.readlines():
-			taskOb = regExOb.match(i)
-			if taskOb:
-				tasksList.append(parseAsTask(taskOb))
-	return json.dumps(tasksList)
+def tasksToJSON(username, todo=False):
+	taskList = []
+	if todo: 
+		with (open('.todo', 'r')) as file:
+			for i in file.readlines():
+				taskOb = regExOb.match(i)
+				if taskOb:
+					taskList.append(parseAsTask(taskOb))
+	else:
+		taskList = DB.getUserTasks(username)
+	return json.dumps(taskList)
 
 @views.route('/')
 def landing():
@@ -34,6 +36,6 @@ def landing():
 def home():
 	return render_template('home.html')
 
-@views.route('/api')
+@views.route('/api', methods=['POST'])
 def getTasks():
-	return tasksToJSON()
+	return tasksToJSON(request.get_json()['username'])

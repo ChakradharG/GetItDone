@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Sign In{% endblock %}
 {% block body %} 
-<form action="#" method="POST" id="signin">
+<form method="POST" id="signin">
 	<fieldset style="width: 30%;">
 		<label for="uname">Username:</label>
 		<br>
@@ -15,5 +15,7 @@
 	</fieldset>
 </form>
 <br>
-New User? <button onclick="window.location.href='./signup';">Register</button>
+{{ message }}
+<br>
+<span>New User?</span><button onclick="window.location.href='./signup';">Register</button>
 {% endblock %}
