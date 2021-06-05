@@ -2,7 +2,11 @@ const tdl = document.getElementById('to-do-list');
 let tasks = null;
 
 (async () => {
-	const response = await fetch('/api', { method: 'GET' });
+	const response = await fetch('/api', {
+		method: 'POST',
+		body: JSON.stringify({'username': localStorage.getItem('username')}),
+		headers: { 'Content-type': 'application/json' }
+	});
 	tasks = await response.json();
 	renderTasks();
 })();
