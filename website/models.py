@@ -1,16 +1,29 @@
-from flask_pymongo import PyMongo
+from pymongo import MongoClient
+from pymongo.message import query
 
 
-class DatabaseModel:
-	def __init__(self, app):
-		self.mongo = PyMongo(app)
+class DataBaseHelpers:
+	def __init__(self, url):
+		self.db = MongoClient(url)['GetItDone']
 
-	def get_user(self, user_mail):
+	def getUserDetails(self, username):
 		"""
-		Function to fetch the user_credentials.
+		write this
 		"""
-		return(list(self.mongo.db.user_details.find({})))
+		return self.db['user_details'].find_one({'username': username})
 
+	def getUserCredentials(self, username):
+		"""
+		write this
+		"""
+		return self.db['user_credentials'].find_one({'username': username})
+
+	def getUserTasks(self, username):
+		"""
+		write this
+		"""
+		return self.db['user_tasks'].find_one({'username': username})['taskList']
+	
 	def register_user(self):
 		"""
 		Function to register User into the database at the time of signup.
@@ -29,24 +42,13 @@ class DatabaseModel:
 		"""
 		pass
 
-	def get_user_details(self):
-		"""
-		Function to fetch the User's Details. To be Displayed on the Page.
-		"""
-		pass
-
-	def get_user_tasks(self):
-		"""
-		Function to fetch the tasks of the user.
-		"""
-		pass
-
 	def authenticate_user(self, user_mail='', user_password=''):
 		"""
 		Function to authenticate the user.
 		"""
 		# is_authorized = False
-		try:
-			print(self.get_user(user_mail))
-		except:
-			print("Error Occurred")
+		# try:
+		# 	print(self.get_user(user_mail))
+		# except:
+		# 	print("Error Occurred")
+		pass
