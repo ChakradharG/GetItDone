@@ -10,6 +10,7 @@
 [] <ADD>  Check Task Functionality.
 [] <WRITE> username in localStorage
 [] <WRITE> task loading screen
+[] <WRITE> loading while auth
 
 [x] <SELECT>  Select DB to Use : MongoDB.
 

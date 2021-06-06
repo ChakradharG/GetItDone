@@ -25,7 +25,8 @@ def tasksToJSON(username, todo=False):
 				if taskOb:
 					taskList.append(parseAsTask(taskOb))
 	else:
-		if (dbResp := DB.getUserTasks(username)) != None:
+		dbResp = DB.getUserTasks(username)
+		if dbResp:
 			taskList = dbResp['taskList']
 		else:
 			taskList = {}
