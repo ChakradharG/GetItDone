@@ -25,12 +25,19 @@ def tasksToJSON(username, todo=False):
 				if taskOb:
 					taskList.append(parseAsTask(taskOb))
 	else:
-		taskList = DB.getUserTasks(username)
+		if (dbResp := DB.getUserTasks(username)) != None:
+			taskList = dbResp['taskList']
+		else:
+			taskList = {}
 	return json.dumps(taskList)
 
 @views.route('/')
 def landing():
-	return '<script>window.location.href="/auth"</script>'
+	return '''
+		<script>
+			localStorage.getItem('username') ? window.location.replace('/home') : window.location.replace('/auth');
+		</script>
+	'''
 
 @views.route('/home')
 def home():

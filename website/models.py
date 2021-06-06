@@ -22,7 +22,7 @@ class DataBaseHelpers:
 		"""
 		write this
 		"""
-		return self.db['user_tasks'].find_one({'username': username})['taskList']
+		return self.db['user_tasks'].find_one({'username': username})
 	
 	def register_user(self):
 		"""
