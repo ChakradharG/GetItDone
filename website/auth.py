@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request
 from passlib.context import CryptContext
+import json
 
 
 auth = Blueprint('auth', __name__)
@@ -15,24 +16,26 @@ def initAuthDB(dbObject):
 # encryptor.hash(password)
 
 @auth.route('/', methods=['GET', 'POST'])
-def signIn():
+def logIn():
 	if request.method == 'GET':
-		return render_template('signin.html')
+		return render_template('login.html')
 	elif request.method == 'POST':
-		formData = dict(request.form)
-		isValid = encryptor.verify(
-			formData['password'],
-			DB.getUserCredentials(formData['username'])['pwdHash']
-		)
-		if isValid:
-			return f'<script>localStorage.setItem("username", "{formData["username"]}"); window.location.replace("/home")</script>'
+		form = request.get_json()
+		try:
+			pwdValid = encryptor.verify(
+				form['password'],
+				DB.getUserCredentials(form['username'])['pwdHash']
+			)
+		except TypeError:
+			# When the username doesn't exist
+			return json.dumps({'userExists': False, 'pwdValid': False})
 		else:
-			return render_template('signin.html', message='Invalid credentials, please try again\n')
+			return json.dumps({'userExists': True, 'pwdValid': pwdValid})
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signUp():
 	if request.method == 'GET':
 		return render_template('signup.html')
 	elif request.method == 'POST':
-		# formData = dict(request.form)
-		return render_template('signin.html')
+		# form = dict(request.form)
+		return render_template('login.html')

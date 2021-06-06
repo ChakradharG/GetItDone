@@ -2,11 +2,11 @@
 {% block title %}Sign In{% endblock %}
 {% block head %}
 	<script>
-		if (localStorage.getItem('username')) { window.location.replace('/home') }
+		if (localStorage.getItem('username')) { window.location.href = '/home' }
 	</script>
 {% endblock %}
 {% block body %}
-<form method="POST" id="login">
+<form id="login">
 	<fieldset style="width: 30%;">
 		<label for="uname">Username:</label>
 		<br>
@@ -16,11 +16,36 @@
 		<br>
 		<input type="password" id="pwd" name="password" placeholder="Password" required minlength="8">
 		<br>
-		<input type="submit" value="Login">
+		<button id="loginBtn">Submit</button>
 	</fieldset>
 </form>
+
+<script>
+	document.getElementById('loginBtn').onclick = async (event) => {
+		event.preventDefault();
+		const form = {
+				username: document.getElementById('uname').value,
+				password: document.getElementById('pwd').value
+			};
+			
+		const validate = await fetch('/auth/', {
+			method: 'POST',
+			body: JSON.stringify(form),
+			headers: { 'Content-type': 'application/json' }
+		});
+
+		const response = await validate.json();
+		if (response.pwdValid) {
+			localStorage.setItem('username', form.username);
+			window.location.replace('/home');
+		} else if (response.userExists) {
+			document.getElementById('message').innerText = 'Invalid password. Please try again.';
+		} else {
+			document.getElementById('message').innerText = 'Invalid username. Please try again.';
+		}
+	};
+</script>
+<span id="message"></span>
 <br>
-{{ message }}
-<br>
-<span>New User?</span><button onclick="window.location.href='./signup';">Register</button>
+<span>New User? </span><button onclick="window.location.href='./signup';">Register</button>
 {% endblock %}
