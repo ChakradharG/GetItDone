@@ -2,24 +2,21 @@
 [] <ADD> LICENSE
 [] <ADD> Dependencies
 [] <UPDATE> README
-
 [] <RES> https://realpython.com/python-api/
+[] <RES> https://www.youtube.com/watch?v=dam0GPOAvVI&t=2580s (Flask)
+[] <RES> https://docs.mongodb.com/manual/reference/operator/update/
 [] <ADD>  Delete Functionality.
 [] <ADD>  Update Task Functionality.
 [] <ADD>  Check Task Functionality.
-[] <RES> https://www.youtube.com/watch?v=dam0GPOAvVI&t=2580s (Flask)
-[] <WRITE> auth logic and navigation(redirect from '/') and signup.html
 [] <WRITE> username in localStorage
-[] <RES> https://docs.mongodb.com/manual/reference/operator/update/
+[] <WRITE> task loading screen
 
 [x] <SELECT>  Select DB to Use : MongoDB.
 
-- RoadMap
 
- [] - Complete Django.
- [] - Complete Mongo DB.
- [] - Connect the Cluster to Django.
- [] - Start with Routes - GET, POST, DELETE, PUT.
- [] - Start with Functionality.
- [] - Get data to Front End.
- [] - Create UI.
+- RoadMap
+[] <> Complete Mongo DB.
+[] <> Start with Routes - GET, POST, DELETE, PUT.
+[] <> Start with Functionality.
+[] <> Get data to Front End.
+[] <> Create UI.
