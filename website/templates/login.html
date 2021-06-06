@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Sign In{% endblock %}
-{% block body %} 
-<form method="POST" id="signin">
+{% block head %}
+	<script>
+		if (localStorage.getItem('username')) { window.location.replace('/home') }
+	</script>
+{% endblock %}
+{% block body %}
+<form method="POST" id="login">
 	<fieldset style="width: 30%;">
 		<label for="uname">Username:</label>
 		<br>
