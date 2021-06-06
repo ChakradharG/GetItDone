@@ -42,3 +42,8 @@ function addTask() {
 	tdl.append(task);
 	inp.focus();
 }
+
+function logOut() {
+	localStorage.removeItem('username');
+	window.location.href = '/';
+}

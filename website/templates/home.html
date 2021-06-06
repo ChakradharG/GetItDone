@@ -2,12 +2,13 @@
 {% block title %}Home{% endblock %}
 {% block head %}
 	<script>
-		if (!localStorage.getItem('username')) { window.location.replace('/auth/') }
+		if (!localStorage.getItem('username')) { window.location.href = '/auth/' }
 	</script>
 	<script defer src="/static/JS/home.js"></script>
 	<link rel="stylesheet" href="/static/CSS/style.css">
 {% endblock %}
 {% block body %}
 	<div id="to-do-list"></div>
+	<button id="logout" onclick="logOut()">-</button>
 	<button id="add-task" onclick="addTask()">+</button>
 {% endblock %}
