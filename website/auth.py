@@ -37,5 +37,10 @@ def signUp():
 	if request.method == 'GET':
 		return render_template('signup.html')
 	elif request.method == 'POST':
-		# form = dict(request.form)
-		return render_template('login.html')
+		form = request.get_json()
+		if DB.getUserDetails(form['email']):
+			return json.dumps({'userExists': True})
+		else:
+			form['password'] = encryptor.hash(form['password'])
+			DB.registerUser(form)
+			return json.dumps({'userExists': False})

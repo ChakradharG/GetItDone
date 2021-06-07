@@ -24,11 +24,14 @@ class DataBaseHelpers:
 		"""
 		return self.db['user_tasks'].find_one({'email': email})
 	
-	def register_user(self):
+	def registerUser(self, form):
 		"""
 		Function to register User into the database at the time of signup.
 		"""
-		pass
+		pwdHash = form['password']
+		del form['password']
+		self.db['user_details'].insert_one(form)
+		self.db['user_credentials'].insert_one({'email': form['email'], 'pwdHash': pwdHash})
 
 	def verify_user(self):
 		"""

@@ -1,30 +1,68 @@
 {% extends "base.html" %}
 {% block title %}Sign Up{% endblock %}
-{% block body %} <!--<form action="#" class="signin">-->
-	<form action="/auth/signup" method="post">
-		<div>
-			<label>First Name:</label>
-			<input type="text" name="first_name" placeholder="John" required>
-		</div>
-		<div>
-			<label>Last Name:</label>
-			<input type="text" name="last_name" placeholder="Doe" required>
-		</div>
-		<div>
-			<label>Email:</label>
-			<input type="text" name="email" placeholder="abc@gmail.com" required>
-		</div>
-		<div>
-			<label>Password:</label>
-			<input type="password" name="password" placeholder="Enter password" required>
-		</div>
-		<div>
-			<label>Confirm Password:</label>
-			<input type="password" name="cnf_password" placeholder="Confirm password" required>
-		</div>
-		<div>
-			<input type="submit" name="submit" value="Register">
-		</div>
+{% block head %}
+	<script>
+		if (localStorage.getItem('email')) { window.location.href = '/home' }
+	</script>
+{% endblock %}
+{% block body %}
+	<form id="signup">
+		<fieldset style="width: 25%;">
+			<label for="fName">First Name:</label>
+			<br>			
+			<input type="text" id="fName" placeholder="First Name" required>
+			<br>			
+			<label for="lName">Last Name:</label>
+			<br>			
+			<input type="text" id="lName" placeholder="Last Name" required>
+			<br>			
+			<label for="email">Email:</label>
+			<br>			
+			<input type="text" id="email" placeholder="ex@example.com" required>
+			<br>			
+			<label for="pwd">Password:</label>
+			<br>			
+			<input type="password" id="pwd" placeholder="Enter Password" required>
+			<br>			
+			<label for="pwd2">Confirm Password:</label>
+			<br>			
+			<input type="password" id="pwd2" placeholder="Confirm Password" required>
+			<br>			
+			<button id="signupBtn">Register</button>
+		</fieldset>
 	</form>
-	Account already Exists? <input type="button" value="Sign In" onclick="window.location.href = './';">
-<!--</form>--> {% endblock %}
+
+	<script>
+		document.getElementById('signupBtn').onclick = async (event) => {
+			event.preventDefault();
+
+			if (document.getElementById('pwd').value !== document.getElementById('pwd2').value) {
+				document.getElementById('message').innerText = 'Passwords don\'t match. Please try again.';
+				return;
+			}
+
+			const form = {
+				fName: document.getElementById('fName').value,
+				lName: document.getElementById('lName').value,
+				email: document.getElementById('email').value,
+				password: document.getElementById('pwd').value
+			};
+
+			const validate = await fetch('/auth/signup', {
+				method: 'POST',
+				body: JSON.stringify(form),
+				headers: { 'Content-type': 'application/json' }
+			});
+
+			const response = await validate.json();
+			if (response.userExists) {
+				document.getElementById('message').innerText = 'Email already exists.';
+			} else {
+				window.location.replace('/auth/');
+			}
+		};
+	</script>
+	<span id="message"></span>
+	<br>
+	<span>Account already Exists? </span><button onclick="window.location.href = './';">Log In</button>
+{% endblock %}
