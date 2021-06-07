@@ -4,7 +4,7 @@ let tasks = null;
 (async () => {
 	const response = await fetch('/api', {
 		method: 'POST',
-		body: JSON.stringify({'username': localStorage.getItem('username')}),
+		body: JSON.stringify({'email': localStorage.getItem('email')}),
 		headers: { 'Content-type': 'application/json' }
 	});
 	tasks = await response.json();
@@ -44,6 +44,6 @@ function addTask() {
 }
 
 function logOut() {
-	localStorage.removeItem('username');
+	localStorage.removeItem('email');
 	window.location.href = '/';
 }

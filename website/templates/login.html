@@ -2,15 +2,15 @@
 {% block title %}Sign In{% endblock %}
 {% block head %}
 	<script>
-		if (localStorage.getItem('username')) { window.location.href = '/home' }
+		if (localStorage.getItem('email')) { window.location.href = '/home' }
 	</script>
 {% endblock %}
 {% block body %}
 <form id="login">
 	<fieldset style="width: 30%;">
-		<label for="uname">Username:</label>
+		<label for="email">Email:</label>
 		<br>
-		<input type="text" id="uname" name="username" placeholder="Username" required>
+		<input type="email" id="email" name="email" placeholder="Email" required>
 		<br>
 		<label for="pwd">Password:</label>
 		<br>
@@ -24,7 +24,7 @@
 	document.getElementById('loginBtn').onclick = async (event) => {
 		event.preventDefault();
 		const form = {
-				username: document.getElementById('uname').value,
+				email: document.getElementById('email').value,
 				password: document.getElementById('pwd').value
 			};
 			
@@ -36,12 +36,12 @@
 
 		const response = await validate.json();
 		if (response.pwdValid) {
-			localStorage.setItem('username', form.username);
+			localStorage.setItem('email', form.email);
 			window.location.replace('/home');
 		} else if (response.userExists) {
 			document.getElementById('message').innerText = 'Invalid password. Please try again.';
 		} else {
-			document.getElementById('message').innerText = 'Invalid username. Please try again.';
+			document.getElementById('message').innerText = 'Invalid email. Please try again.';
 		}
 	};
 </script>

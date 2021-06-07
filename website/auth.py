@@ -24,10 +24,10 @@ def logIn():
 		try:
 			pwdValid = encryptor.verify(
 				form['password'],
-				DB.getUserCredentials(form['username'])['pwdHash']
+				DB.getUserCredentials(form['email'])['pwdHash']
 			)
 		except TypeError:
-			# When the username doesn't exist
+			# When the email doesn't exist
 			return json.dumps({'userExists': False, 'pwdValid': False})
 		else:
 			return json.dumps({'userExists': True, 'pwdValid': pwdValid})

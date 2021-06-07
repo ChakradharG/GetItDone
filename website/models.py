@@ -6,23 +6,23 @@ class DataBaseHelpers:
 	def __init__(self, url):
 		self.db = MongoClient(url)['GetItDone']
 
-	def getUserDetails(self, username):
+	def getUserDetails(self, email):
 		"""
 		write this
 		"""
-		return self.db['user_details'].find_one({'username': username})
+		return self.db['user_details'].find_one({'email': email})
 
-	def getUserCredentials(self, username):
+	def getUserCredentials(self, email):
 		"""
 		write this
 		"""
-		return self.db['user_credentials'].find_one({'username': username})
+		return self.db['user_credentials'].find_one({'email': email})
 
-	def getUserTasks(self, username):
+	def getUserTasks(self, email):
 		"""
 		write this
 		"""
-		return self.db['user_tasks'].find_one({'username': username})
+		return self.db['user_tasks'].find_one({'email': email})
 	
 	def register_user(self):
 		"""

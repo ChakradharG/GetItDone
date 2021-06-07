@@ -16,7 +16,7 @@ def parseAsTask(taskOb):
 		task['done'] = True
 	return task
 
-def tasksToJSON(username, todo=False):
+def tasksToJSON(email, todo=False):
 	taskList = []
 	if todo: 
 		with (open('.todo', 'r')) as file:
@@ -25,7 +25,7 @@ def tasksToJSON(username, todo=False):
 				if taskOb:
 					taskList.append(parseAsTask(taskOb))
 	else:
-		dbResp = DB.getUserTasks(username)
+		dbResp = DB.getUserTasks(email)
 		if dbResp:
 			taskList = dbResp['taskList']
 		else:
@@ -36,7 +36,7 @@ def tasksToJSON(username, todo=False):
 def landing():
 	return '''
 		<script>
-			localStorage.getItem('username') ? window.location.replace('/home') : window.location.replace('/auth');
+			localStorage.getItem('email') ? window.location.replace('/home') : window.location.replace('/auth');
 		</script>
 	'''
 
@@ -46,4 +46,4 @@ def home():
 
 @views.route('/api', methods=['POST'])
 def getTasks():
-	return tasksToJSON(request.get_json()['username'])
+	return tasksToJSON(request.get_json()['email'])
