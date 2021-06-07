@@ -8,9 +8,11 @@
 [] <ADD>  Delete Functionality.
 [] <ADD>  Update Task Functionality.
 [] <ADD>  Check Task Functionality.
-[] <WRITE> username in localStorage
+[] <WRITE> task to db
+[] <WRITE> email in localStorage
 [] <WRITE> task loading screen
 [] <WRITE> loading while auth
+[] <WRITE> form validation
 
 [x] <SELECT>  Select DB to Use : MongoDB.
 
