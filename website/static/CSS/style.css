@@ -20,7 +20,7 @@ body {
 }
 
 .todo {
-	padding: 8px 12px;
+	padding: 8px 12px 8px 50px;
 	color: rgb(240, 240, 240);
 	border-radius: 4px;
 	background-color: rgba(255, 255, 255, 0.281);
@@ -31,6 +31,12 @@ body {
 
 .todo:hover {
 	--vis: inline;
+}
+
+.check {
+	position: absolute;
+	top: 12px;
+	left: 20px;
 }
 
 .btn {

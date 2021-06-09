@@ -30,6 +30,10 @@ function renderTasks() {
 		task.append(customElement({tag: 'p', innerText: i.cont}));
 		task.append(customElement({tag: 'p', innerText: i.class, style: 'color: gray'}));
 		task.append(ctrlButtons());
+		let check = customElement({tag: 'input', className: 'check'});
+		check.type = 'checkbox';
+		check.checked = i.done;
+		task.append(check);
 		todoList.append(task);
 	}
 }
@@ -77,6 +81,9 @@ function addTask(replace=false, text1, text2, element) {
 		task.append(customElement({tag: 'p', innerText: inp1.value}));
 		task.append(customElement({tag: 'p', innerText: inp2.value, style: 'color: gray'}));
 		task.append(ctrlButtons());
+		let check = customElement({tag: 'input', className: 'check'});
+		check.type = 'checkbox';
+		task.append(check);
 	});
 
 	task.append(inp1);
@@ -91,8 +98,8 @@ function addTask(replace=false, text1, text2, element) {
 	inp1.focus();
 }
 
-function syncWithServer() {
-	// console.log(1);
+function saveToServer() {
+	// console.log('saving...');
 }
 
 function logOut() {
@@ -100,4 +107,4 @@ function logOut() {
 	window.location.href = '/';
 }
 
-// setInterval(syncWithServer, 15000)
+// setInterval(saveToServer, 15000)
