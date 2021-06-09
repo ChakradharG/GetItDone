@@ -16,14 +16,12 @@
 			<br>
 			<input type="password" id="pwd" placeholder="Password" required minlength="8">
 			<br>
-			<button id="loginBtn">Log In</button>
+			<button id="loginBtn" type="button">Log In</button>
 		</fieldset>
 	</form>
 
 	<script>
 		document.getElementById('loginBtn').onclick = async (event) => {
-			event.preventDefault();
-
 			const form = {
 				email: document.getElementById('email').value,
 				password: document.getElementById('pwd').value
