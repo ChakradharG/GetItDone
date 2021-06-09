@@ -5,26 +5,35 @@
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+:root {
+	--vis: none;
+}
+
 body {
 	background: linear-gradient(90deg, #1f005c, #5b0060, #870160, #ac255e, #ca485c, #e16b5c, #f39060, #ffb56b);
 	color: rgb(240, 240, 240);
 	height: 100%;
 }
 
-#to-do-list {
+#todo-list {
 	padding: 10px;
 }
 
-.task-card {
+.todo {
 	padding: 8px 12px;
 	color: rgb(240, 240, 240);
 	border-radius: 4px;
 	background-color: rgba(255, 255, 255, 0.281);
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 	margin: 10px 0px;
+	position: relative;
 }
 
-#add-task {
+.todo:hover {
+	--vis: inline;
+}
+
+.btn {
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
@@ -32,30 +41,24 @@ body {
 	border: none;
 	font-size: 25px;
 	position: fixed;
+	bottom: 20px;
+	transition: 0.5s ease;
+}
+
+.add-task {
 	right: 20px;
-	bottom: 20px;
-	transition: 0.5s ease;
 }
 
-#logout {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	outline: none;
-	border: none;
-	font-size: 25px;
-	position: fixed;
+.logout {
 	left: 20px;
-	bottom: 20px;
-	transition: 0.5s ease;
 }
 
-#add-task:hover {
+.btn:hover {
 	background-color: #5b0060;
 	color: white;
 }
 
-.enter-task, .enter-task-class {
+.input-task, .input-task-class {
 	border: none;
 	outline: none;
 	background: transparent;
@@ -64,6 +67,13 @@ body {
 	font-size: 1rem;
 }
 
-.enter-task-class {
+.input-task-class {
 	color: gray;
+}
+
+.btn-container {
+	position: absolute;
+	display: var(--vis);
+	right: 8px;
+	top: 12px;
 }

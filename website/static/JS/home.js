@@ -1,4 +1,4 @@
-const tdl = document.getElementById('to-do-list');
+const todoList = document.getElementById('todo-list');
 let tasks = null;
 
 (async () => {
@@ -11,39 +11,93 @@ let tasks = null;
 	renderTasks();
 })();
 
+function customElement({ tag, className, id, innerText, innerHTML, style, onclick }) {
+	let elem = document.createElement(tag);
+
+	if (className) elem.className = className;
+	if (id) elem.id = id;
+	if (innerHTML) elem.innerHTML = innerHTML;
+	if (innerText) elem.innerText = innerText;
+	if (style) elem.style = style;
+	if (onclick) elem.onclick = onclick;
+
+	return elem;
+}
+
 function renderTasks() {
 	for (let i of tasks) {
-		let task = document.createElement('div');
-		task.className = 'task-card';
-		task.innerHTML = `<p>${i.cont}</p><p style="color:gray;">${i.class}</p>`;
-		tdl.append(task);
+		let task = customElement({tag: 'div', className: 'todo'});
+		task.append(customElement({tag: 'p', innerText: i.cont}));
+		task.append(customElement({tag: 'p', innerText: i.class, style: 'color: gray'}));
+		task.append(ctrlButtons());
+		todoList.append(task);
 	}
 }
 
-function addTask() {
-	let task = document.createElement('div');
-	task.className = 'task-card';
-	let inp = document.createElement('input');
-	inp.className = 'enter-task';
-	let inp2 = document.createElement('input');
-	inp2.className = 'enter-task-class';
-	inp.addEventListener('keydown', (event) => {
-		if (event.key === 'Enter') {
-			inp2.focus();
+function ctrlButtons() {
+	let btnContainer = customElement({tag: 'div', className: 'btn-container'});
+
+	btnContainer.append(customElement({
+		tag: 'button',
+		innerText: 'E',
+		onclick() {
+			let task = this.closest('.todo');
+			addTask(true, task.childNodes[0].innerText, task.childNodes[1].innerText, task);
 		}
+	}));
+	btnContainer.append(customElement({
+		tag: 'button',
+		innerText: 'D',
+		onclick() {
+			this.closest('.todo').remove();
+		}
+	}));
+
+	return btnContainer;
+}
+
+function addTask(replace=false, text1, text2, element) {
+	let task = customElement({tag: 'div', className: 'todo'});
+
+	let inp1 = customElement({tag: 'input', className: 'input-task'});
+	if (replace) inp1.value = text1;
+	let inp2 = customElement({tag: 'input', className: 'input-task-class'});
+	if (replace) inp2.value = text2;
+
+	inp1.addEventListener('keydown', (event) => {
+		if (event.key === 'Enter') inp2.focus();
 	});
+
 	inp2.addEventListener('keydown', (event) => {
-		if (event.key === 'Enter') {
-			task.innerHTML = `<p>${inp.value}</p><p style="color:gray;">${inp2.value}</p>`;
-		}
+		if (event.key === 'Enter') inp2.blur();
 	});
-	task.appendChild(inp);
-	task.appendChild(inp2);
-	tdl.append(task);
-	inp.focus();
+
+	inp2.addEventListener('focusout', () => {
+		task.innerHTML = '';
+		task.append(customElement({tag: 'p', innerText: inp1.value}));
+		task.append(customElement({tag: 'p', innerText: inp2.value, style: 'color: gray'}));
+		task.append(ctrlButtons());
+	});
+
+	task.append(inp1);
+	task.append(inp2);
+
+	if (replace) {
+		element.before(task);
+		element.remove();
+	} else {
+		todoList.append(task);
+	}
+	inp1.focus();
+}
+
+function syncWithServer() {
+	// console.log(1);
 }
 
 function logOut() {
 	localStorage.removeItem('email');
 	window.location.href = '/';
 }
+
+// setInterval(syncWithServer, 15000)
