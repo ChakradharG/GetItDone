@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, Response
 import json
 import re
 
@@ -28,8 +28,6 @@ def tasksToJSON(email, todo=False):
 		dbResp = DB.getUserTasks(email)
 		if dbResp:
 			taskList = dbResp['taskList']
-		else:
-			taskList = {}
 	return json.dumps(taskList)
 
 @views.route('/')
@@ -46,4 +44,9 @@ def home():
 
 @views.route('/api', methods=['POST'])
 def getTasks():
-	return tasksToJSON(request.get_json()['email'])
+	req = request.get_json()
+	if req['sync']:
+		DB.updateTasks(req['email'], req['taskList'])
+		return Response(status=200)
+	else:
+		return tasksToJSON(req['email'])

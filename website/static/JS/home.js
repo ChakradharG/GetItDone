@@ -4,7 +4,7 @@ let tasks = null;
 (async () => {
 	const response = await fetch('/api', {
 		method: 'POST',
-		body: JSON.stringify({'email': localStorage.getItem('email')}),
+		body: JSON.stringify({'email': localStorage.getItem('email'), 'sync': false}),
 		headers: { 'Content-type': 'application/json' }
 	});
 	tasks = await response.json();
@@ -30,10 +30,7 @@ function renderTasks() {
 		task.append(customElement({tag: 'p', innerText: i.cont}));
 		task.append(customElement({tag: 'p', innerText: i.class, style: 'color: gray'}));
 		task.append(ctrlButtons());
-		let check = customElement({tag: 'input', className: 'check'});
-		check.type = 'checkbox';
-		check.checked = i.done;
-		task.append(check);
+		task.append(checkBox(i.done));
 		todoList.append(task);
 	}
 }
@@ -54,13 +51,25 @@ function ctrlButtons() {
 		innerText: 'D',
 		onclick() {
 			this.closest('.todo').remove();
+			saveToServer();
 		}
 	}));
 
 	return btnContainer;
 }
 
-function addTask(replace=false, text1, text2, element) {
+function checkBox(done) {
+	let check = customElement({tag: 'input', className: 'check'});
+	check.type = 'checkbox';
+	check.checked = done;
+	check.addEventListener('change', () => {
+		saveToServer();
+	});
+	
+	return check;
+}
+
+function addTask(replace, text1, text2, element) {
 	let task = customElement({tag: 'div', className: 'todo'});
 
 	let inp1 = customElement({tag: 'input', className: 'input-task'});
@@ -81,9 +90,8 @@ function addTask(replace=false, text1, text2, element) {
 		task.append(customElement({tag: 'p', innerText: inp1.value}));
 		task.append(customElement({tag: 'p', innerText: inp2.value, style: 'color: gray'}));
 		task.append(ctrlButtons());
-		let check = customElement({tag: 'input', className: 'check'});
-		check.type = 'checkbox';
-		task.append(check);
+		task.append(checkBox());
+		saveToServer();
 	});
 
 	task.append(inp1);
@@ -99,12 +107,19 @@ function addTask(replace=false, text1, text2, element) {
 }
 
 function saveToServer() {
-	// console.log('saving...');
+	tasks = Array.from(todoList.children);
+	tasks = tasks.map(elem => {
+		return {done: elem.children[3].checked, 'class': elem.children[1].innerText, cont: elem.children[0].innerText};
+	});
+
+	fetch('/api', {
+		method: 'POST',
+		body: JSON.stringify({'email': localStorage.getItem('email'), 'taskList': tasks, 'sync': true}),
+		headers: { 'Content-type': 'application/json' }
+	});
 }
 
 function logOut() {
 	localStorage.removeItem('email');
 	window.location.href = '/';
 }
-
-// setInterval(saveToServer, 15000)
