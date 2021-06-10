@@ -32,6 +32,12 @@ class DataBaseHelpers:
 		del form['password']
 		self.db['user_details'].insert_one(form)
 		self.db['user_credentials'].insert_one({'email': form['email'], 'pwdHash': pwdHash})
+	
+	def updateTasks(self, email, taskList):
+		"""
+		write this
+		"""
+		self.db['user_tasks'].update_one({'email': email}, {'$set': {'taskList': taskList}}, upsert=True)
 
 	def verify_user(self):
 		"""
