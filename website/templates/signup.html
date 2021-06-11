@@ -28,14 +28,12 @@
 			<br>			
 			<input type="password" id="pwd2" placeholder="Confirm Password" required>
 			<br>			
-			<button id="signupBtn">Register</button>
+			<button id="signupBtn" type="button">Register</button>
 		</fieldset>
 	</form>
 
 	<script>
-		document.getElementById('signupBtn').onclick = async (event) => {
-			event.preventDefault();
-
+		document.getElementById('signupBtn').onclick = async () => {
 			if (document.getElementById('pwd').value !== document.getElementById('pwd2').value) {
 				document.getElementById('message').innerText = 'Passwords don\'t match. Please try again.';
 				return;
@@ -47,6 +45,16 @@
 				email: document.getElementById('email').value,
 				password: document.getElementById('pwd').value
 			};
+
+			if (!/\S+@\S+\.\w+/.test(form.email)) {
+				document.getElementById('message').innerText = 'Invalid email. Please try again.';
+				return;
+			} else if (form.password.length < 8) {
+				document.getElementById('message').innerText = 'Password should be at least 8 characters long. Please try again.';
+				return;
+			} else if (fName === '' || lName === '') {
+				document.getElementById('message').innerText = 'Name can\'t be empty. Please try again.';
+			}
 
 			const validate = await fetch('/auth/signup', {
 				method: 'POST',

@@ -21,11 +21,19 @@
 	</form>
 
 	<script>
-		document.getElementById('loginBtn').onclick = async (event) => {
+		document.getElementById('loginBtn').onclick = async () => {
 			const form = {
 				email: document.getElementById('email').value,
 				password: document.getElementById('pwd').value
 			};
+
+			if (!/\S+@\S+\.\w+/.test(form.email)) {
+				document.getElementById('message').innerText = 'Invalid email. Please try again.';
+				return;
+			} else if (form.password.length < 8) {
+				document.getElementById('message').innerText = 'Invalid password. Please try again.';
+				return;
+			}
 
 			const validate = await fetch('/auth/', {
 				method: 'POST',
@@ -40,7 +48,7 @@
 			} else if (response.userExists) {
 				document.getElementById('message').innerText = 'Invalid password. Please try again.';
 			} else {
-				document.getElementById('message').innerText = 'Invalid email. Please try again.';
+				document.getElementById('message').innerText = 'User with this email does not exist. Please try again.';
 			}
 		};
 	</script>
