@@ -1,12 +1,45 @@
 {% extends "base.html" %}
 {% block title %}Sign Up{% endblock %}
 {% block head %}
+	<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>	
 	<script>
 		if (localStorage.getItem('email')) { window.location.href = '/home' }
 	</script>
 {% endblock %}
 {% block body %}
-	<form id="signup">
+	<div class="base-container card">
+		<div class="image-container login-img">
+		</div>
+		<div class="form-container">
+			<div class="signup-form">
+				<h3 class="card-name">Sign Up</h3>
+				<hr class="card-name-ul">
+				<form id="signup" class='card login-form'>
+					<div class="name-container">
+						<div>
+							<input type="text" id="fName" placeholder="First Name" required>
+						</div>
+						<div>
+							<input type="text" id="lName" placeholder="Last Name" required>
+						</div>
+					</div>
+					<div class="input-container">
+						<input type="text" id="email" placeholder="ex@example.com" required>
+					</div>
+					<div class="input-container">
+						<input type="password" id="pwd" placeholder="Enter Password" required>
+					</div>
+					<div class="input-container">
+						<input type="password" id="pwd2" placeholder="Confirm Password" required>
+					</div>
+					<span>Already have an Account? <a href="./">Login</a></span>
+					<br>
+					<button id="signinBtn" type="button">Sign Up</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- <form id="signup">
 		<fieldset style="width: 25%;">
 			<label for="fName">First Name:</label>
 			<br>			
@@ -30,7 +63,7 @@
 			<br>			
 			<button id="signupBtn" type="button">Register</button>
 		</fieldset>
-	</form>
+	</form> -->
 
 	<script>
 		document.getElementById('signupBtn').onclick = async () => {
@@ -70,7 +103,4 @@
 			}
 		};
 	</script>
-	<span id="message"></span>
-	<br>
-	<span>Account already Exists? </span><button onclick="window.location.href = './';">Log In</button>
 {% endblock %}

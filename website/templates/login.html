@@ -1,25 +1,36 @@
 {% extends "base.html" %}
 {% block title %}Sign In{% endblock %}
 {% block head %}
+	<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>	
 	<script>
 		if (localStorage.getItem('email')) { window.location.href = '/home' }
 	</script>
 {% endblock %}
 {% block body %}
-	<form id="login">
-		<fieldset style="width: 25%;">
-			<label for="email">Email:</label>
-			<br>
-			<input type="email" id="email" placeholder="Email" required>
-			<br>
-			<label for="pwd">Password:</label>
-			<br>
-			<input type="password" id="pwd" placeholder="Password" required minlength="8">
-			<br>
-			<button id="loginBtn" type="button">Log In</button>
-		</fieldset>
-	</form>
-
+	<div class="base-container card">
+		<div class="image-container login-img">
+		</div>
+		<div class="form-container">
+			<div class="login-form">
+				<h3 class="card-name">Login</h3>
+				<hr class="card-name-ul">
+				<form id="login" class='card login-form'>
+					<div>
+						<img class="form-input-image" src='../static/IMAGES/user-icon.png' alt="user" />
+						<input type="email" id="email" placeholder="Email" required>
+					</div>
+					<div class="input-container">
+						<img class="form-input-image" src='../static/IMAGES/pass-icon.png' alt="password" />
+						<input type="password" id="pwd" placeholder="Password" required minlength="8">
+					</div>
+					<span>Don't have an Account? <a href="./signup">Signup</a></span>
+					<br>
+					<button id="loginBtn" type="button">Login</button>
+				</form>
+				<span id="message"></span>
+			</div>
+		</div>
+	</div>
 	<script>
 		document.getElementById('loginBtn').onclick = async () => {
 			const form = {
@@ -52,7 +63,5 @@
 			}
 		};
 	</script>
-	<span id="message"></span>
-	<br>
-	<span>New User? </span><button onclick="window.location.href='./signup';">Register</button>
+	
 {% endblock %}
