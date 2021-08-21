@@ -8,7 +8,7 @@ def initViewDB(dbObject):
 	global DB
 	DB = dbObject
 
-def tasksToJSON(email, todo=False):
+def tasksToJSON(email):
 	taskList = []
 	dbResp = DB.getUserTasks(email)
 	if dbResp:
