@@ -18,7 +18,7 @@ def initAuthDB(dbObject):
 @auth.route('/', methods=['GET', 'POST'])
 def logIn():
 	if request.method == 'GET':
-		return render_template('todo.html')
+		return render_template('login.html')
 	elif request.method == 'POST':
 		form = request.get_json()
 		try:

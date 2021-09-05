@@ -45,7 +45,7 @@ body {
 	border-radius: 50%;
 	outline: none;
 	border: none;
-	font-size: 25px;
+	font-size: 1.75rem;
 	position: fixed;
 	bottom: 20px;
 	transition: 0.5s ease;

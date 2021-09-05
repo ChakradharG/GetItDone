@@ -16,3 +16,18 @@
 [] <> Start with Functionality.
 [] <> Get data to Front End.
 [] <> Create UI.
+
+
+- Basic Task Template
+
+<div class="task">
+	<div class="task-check">
+		<input type="checkbox" name="task" checked=* value=*>
+	</div>
+	<div class="task-desc">
+		Hello aworld
+	</div>
+</div>
+
+	- if pending or completed
+	  <div class="date"><span class="date-line"></span>30-09-2021, Monday<span class="date-line"></span></div>
