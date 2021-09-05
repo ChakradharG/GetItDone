@@ -193,3 +193,16 @@ hr {
 	background-color: #43227154;
 	display: inline-block;
 }
+
+@media only screen and (max-width: 768px) {
+
+	.task-div-container {
+		flex-direction: column;
+		overflow-y: scroll;
+	}
+
+	.task-div-container > div:not(:first-child){
+		margin-top: 20px;
+	}
+
+}
