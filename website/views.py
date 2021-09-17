@@ -27,11 +27,19 @@ def landing():
 def home():
 	return render_template('home.html')
 
-@views.route('/api', methods=['POST'])
+@views.route('/gettasks', methods=['POST'])
 def getTasks():
 	req = request.get_json()
-	if req['sync']:
-		DB.updateTasks(req['email'], req['taskList'])
-		return Response(status=200)
-	else:
-		return tasksToJSON(req['email'])
+	return tasksToJSON(req['email'])
+
+@views.route('/synctasks', methods=['POST'])
+def syncTasks():
+	req = request.get_json()
+	DB.updateTasks(req['email'], req['taskList'])
+	return Response(status=200)
+
+@views.route('/getuser', methods=['POST'])
+def getUser():
+	req = request.get_json()
+	user = DB.getUserDetails(req['email'])
+	return json.dumps(user['fName'])
