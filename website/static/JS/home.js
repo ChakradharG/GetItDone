@@ -1,14 +1,26 @@
-const todoList = document.getElementById('todo-list');
-let tasks = null;
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 (async () => {
-	const response = await fetch('/api', {
+	const response = await fetch('/getuser', {
 		method: 'POST',
-		body: JSON.stringify({'email': localStorage.getItem('email'), 'sync': false}),
+		body: JSON.stringify({'email': localStorage.getItem('email')}),
 		headers: { 'Content-type': 'application/json' }
 	});
-	tasks = await response.json();
-	renderTasks();
+
+	let name = await response.json();
+	document.querySelector('#greet-user').innerText = `Hey there, ${name}`;
+})();
+
+(async () => {
+	const response = await fetch('/gettasks', {
+		method: 'POST',
+		body: JSON.stringify({'email': localStorage.getItem('email')}),
+		headers: { 'Content-type': 'application/json' }
+	});
+
+	let tasks = await response.json();
+	tasks.sort((t1, t2) => { t1 - t2 });
+	tasks.forEach(renderTask);
 })();
 
 function customElement({ tag, className, id, innerText, innerHTML, style, onclick }) {
@@ -24,97 +36,91 @@ function customElement({ tag, className, id, innerText, innerHTML, style, onclic
 	return elem;
 }
 
-function renderTasks() {
-	for (let i of tasks) {
-		let task = customElement({tag: 'div', className: 'todo'});
-		task.append(customElement({tag: 'p', innerText: i.cont}));
-		task.append(customElement({tag: 'p', innerText: i.class, style: 'color: gray'}));
-		task.append(ctrlButtons());
-		task.append(checkBox(i.done));
-		todoList.append(task);
+function renderTask(task) {
+	let div = customElement({tag: 'div', className: 'task'});
+	div.dataset.dt = task.dt;
+	div.append(checkBox(task.done));
+	div.append(desc(task.cont));
+
+	if (task.done) {
+		let dt = new Date(task.dt);
+		dt = `${String(dt.getDate()).padStart(2, '0')}-${String(dt.getMonth()+1).padStart(2, '0')}-${dt.getFullYear()}, ${days[dt.getDay()]}`;
+		let container = document.querySelector(`.container-completed #d${dt}`) ?? dateElem(dt, document.querySelector('.container-completed > .task-list'));
+		container.append(div);
+	} else if ((Date.now() - task.dt) > 0) {
+		let dt = new Date(task.dt);
+		dt = `${String(dt.getDate()).padStart(2, '0')}-${String(dt.getMonth()+1).padStart(2, '0')}-${dt.getFullYear()}, ${days[dt.getDay()]}`;
+		let container = document.querySelector(`.container-overdue #d${dt}`) ?? dateElem(dt, document.querySelector('.container-overdue > .task-list'));
+		container.append(div);
+	} else {
+		let dt = new Date(task.dt);
+		dt = `${String(dt.getDate()).padStart(2, '0')}-${String(dt.getMonth()+1).padStart(2, '0')}-${dt.getFullYear()}, ${days[dt.getDay()]}`;
+		let container = document.querySelector(`.container-scheduled #d${dt}`) ?? dateElem(dt, document.querySelector('.container-scheduled > .task-list'));
+		container.append(div);
 	}
 }
 
-function ctrlButtons() {
-	let btnContainer = customElement({tag: 'div', className: 'btn-container'});
+function dateElem(dateStr, taskList) {
+	let div = customElement({
+		tag: 'div',
+		className: 'pc-task-container',
+		id: 'd' + dateStr.slice(0, 10)
+	});
 
-	btnContainer.append(customElement({
-		tag: 'button',
-		innerText: 'E',
-		onclick() {
-			let task = this.closest('.todo');
-			addTask(true, task.childNodes[0].innerText, task.childNodes[1].innerText, task);
+	div.addEventListener('change', () => {
+		if (div.children.length === 1) {
+			div.remove();
 		}
-	}));
-	btnContainer.append(customElement({
-		tag: 'button',
-		innerText: 'D',
-		onclick() {
-			this.closest('.todo').remove();
-			saveToServer();
-		}
-	}));
+	});
 
-	return btnContainer;
+	let _ = customElement({
+		tag: 'div',
+		className: 'date',
+		innerHTML: `<span class="date-line"></span>${dateStr}<span class="date-line"></span>`
+	});
+
+	div.append(_);
+	taskList.append(div);
+	return div;
 }
 
 function checkBox(done) {
-	let check = customElement({tag: 'input', className: 'check'});
-	check.type = 'checkbox';
-	check.checked = done;
+	let check = customElement({
+		tag: 'div',
+		className: 'task-check',
+		innerHTML: `<input type="checkbox" name="task" ${done ? 'checked' : ''}>`
+	});
 	check.addEventListener('change', () => {
+		check.parentElement.remove();
+		renderTask(domElemToObj(check.parentElement));
 		saveToServer();
 	});
-	
+
 	return check;
 }
 
-function addTask(replace, text1, text2, element) {
-	let task = customElement({tag: 'div', className: 'todo'});
-
-	let inp1 = customElement({tag: 'input', className: 'input-task'});
-	if (replace) inp1.value = text1;
-	let inp2 = customElement({tag: 'input', className: 'input-task-class'});
-	if (replace) inp2.value = text2;
-
-	inp1.addEventListener('keydown', (event) => {
-		if (event.key === 'Enter') inp2.focus();
+function desc(cont) {
+	return customElement({
+		tag: 'div',
+		className: 'task-desc',
+		innerText: cont
 	});
+}
 
-	inp2.addEventListener('keydown', (event) => {
-		if (event.key === 'Enter') inp2.blur();
-	});
-
-	inp2.addEventListener('focusout', () => {
-		task.innerHTML = '';
-		task.append(customElement({tag: 'p', innerText: inp1.value}));
-		task.append(customElement({tag: 'p', innerText: inp2.value, style: 'color: gray'}));
-		task.append(ctrlButtons());
-		task.append(checkBox());
-		saveToServer();
-	});
-
-	task.append(inp1);
-	task.append(inp2);
-
-	if (replace) {
-		element.before(task);
-		element.remove();
-	} else {
-		todoList.append(task);
-	}
-	inp1.focus();
+function domElemToObj(elem) {
+	return {
+		dt: +elem.dataset.dt,
+		done: elem.querySelector('input[type="checkbox"]').checked,
+		cont: elem.querySelector('.task-desc').innerText
+	};
 }
 
 function saveToServer() {
-	tasks = Array.from(todoList.children);
-	tasks = tasks.map(elem => {
-		return {done: elem.children[3].checked, 'class': elem.children[1].innerText, cont: elem.children[0].innerText};
-	});
+	let tasks = Array.from(document.querySelectorAll('.task')).map(domElemToObj);
 
-	fetch('/api', {
+	fetch('/synctasks', {
 		method: 'POST',
-		body: JSON.stringify({'email': localStorage.getItem('email'), 'taskList': tasks, 'sync': true}),
+		body: JSON.stringify({'email': localStorage.getItem('email'), 'taskList': tasks}),
 		headers: { 'Content-type': 'application/json' }
 	});
 }
