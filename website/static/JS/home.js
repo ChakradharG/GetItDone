@@ -47,7 +47,7 @@ function renderTask(task) {
 		dt = `${String(dt.getDate()).padStart(2, '0')}-${String(dt.getMonth()+1).padStart(2, '0')}-${dt.getFullYear()}, ${days[dt.getDay()]}`;
 		let container = document.querySelector(`.container-completed #d${dt}`) ?? dateElem(dt, document.querySelector('.container-completed > .task-list'));
 		container.append(div);
-	} else if ((Date.now() - task.dt) > 0) {
+	} else if ((Date.now() - task.dt) > 86400000) {	// 1 day
 		let dt = new Date(task.dt);
 		dt = `${String(dt.getDate()).padStart(2, '0')}-${String(dt.getMonth()+1).padStart(2, '0')}-${dt.getFullYear()}, ${days[dt.getDay()]}`;
 		let container = document.querySelector(`.container-overdue #d${dt}`) ?? dateElem(dt, document.querySelector('.container-overdue > .task-list'));
@@ -55,7 +55,7 @@ function renderTask(task) {
 	} else {
 		let dt = new Date(task.dt);
 		dt = `${String(dt.getDate()).padStart(2, '0')}-${String(dt.getMonth()+1).padStart(2, '0')}-${dt.getFullYear()}, ${days[dt.getDay()]}`;
-		let container = document.querySelector(`.container-scheduled #d${dt}`) ?? dateElem(dt, document.querySelector('.container-scheduled > .task-list'));
+		let container = document.querySelector(`.container-upcoming #d${dt}`) ?? dateElem(dt, document.querySelector('.container-upcoming > .task-list'));
 		container.append(div);
 	}
 }
@@ -100,11 +100,13 @@ function checkBox(done) {
 }
 
 function desc(cont) {
-	return customElement({
+	let _ = customElement({
 		tag: 'div',
 		className: 'task-desc',
 		innerText: cont
 	});
+
+	return _;
 }
 
 function domElemToObj(elem) {
