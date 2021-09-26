@@ -165,6 +165,20 @@ hr {
 	word-wrap: break-word;
 	padding: 4px 10px;
 	text-align: justify;
+	outline: none;
+	display: inline-block;
+}
+
+.task-desc:focus {
+	color: #7f7f7f;
+}
+
+.sch-inp {
+	display: none;
+}
+
+.vis .sch-inp {
+	display: initial;
 }
 
 ::-webkit-scrollbar {

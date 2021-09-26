@@ -34,15 +34,17 @@
 				</div>
 			</div>
 			<div class="task-div-container">
-				<div class="container-scheduled">
-					<div class="heading">Scheduled</div>
+				<div class="container-upcoming">
+					<div class="heading">Upcoming</div>
 					<hr>
 					<div class="add-task-btn-container">
-						<div class="add-task-btn">
+						<div class="add-task-btn" onclick="newTask()">
 							<i class="fa fa-plus-circle"></i>
 						</div>
 					</div>
-					<div class="task-list"></div>
+					<div class="task-list">
+						<div class="no-date"></div>
+					</div>
 				</div>
 				<div class="container-overdue">
 					<div class="heading">Overdue</div>
@@ -52,7 +54,9 @@
 				<div class="container-completed">
 					<div class="heading">Completed</div>
 					<hr>
-					<div class="task-list"></div>
+					<div class="task-list">
+						<div class="no-date"></div>
+					</div>
 				</div>
 			</div>
 		</div>
