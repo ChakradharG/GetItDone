@@ -2,33 +2,5 @@
 [] <ADD> LICENSE
 [] <ADD> Dependencies
 [] <UPDATE> README
-[] <WRITE> task loading screen
-[] <WRITE> loading while auth
-[] <STYLE> app
-[] <WRITE> logo
-[] <WRITE> Multiple lists
-[] <RES> https://www.youtube.com/watch?v=IhmSidOJSeE (better todo)
-[] <RES> https://www.youtube.com/watch?v=yrrw6KdGuxc (login animation)
-
-
-- RoadMap
-[] <> Complete Mongo DB.
-[] <> Start with Routes - GET, POST, DELETE, PUT.
-[] <> Start with Functionality.
-[] <> Get data to Front End.
-[] <> Create UI.
-
-
-- Basic Task Template
-
-<div class="task">
-	<div class="task-check">
-		<input type="checkbox" name="task" checked=* value=*>
-	</div>
-	<div class="task-desc">
-		Hello aworld
-	</div>
-</div>
-
-	- if pending or completed
-	  <div class="date"><span class="date-line"></span>30-09-2021, Monday<span class="date-line"></span></div>
+[] <C> auth logic/session management
+[] <H> navbar, list clipping, div#message in login/signup page, increase font weight, logo
