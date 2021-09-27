@@ -49,7 +49,7 @@ function renderTask(task) {
 		let dt = new Date(task.dt);
 		dt = `${String(dt.getDate()).padStart(2, '0')}-${String(dt.getMonth()+1).padStart(2, '0')}-${dt.getFullYear()}, ${days[dt.getDay()]}`;
 		if (task.dt) {
-			let container = document.querySelector(`.container-completed #d${dt}`) ?? dateElem(dt, document.querySelector('.container-completed > .task-list'));
+			let container = document.querySelector(`.container-completed .d${dt}`) ?? dateElem(dt, document.querySelector('.container-completed > .task-list'));
 			container.append(div);
 		} else {
 			let container = document.querySelector(`.container-completed .no-date`);
@@ -61,27 +61,44 @@ function renderTask(task) {
 	} else if ((Date.now() - task.dt) > 86400000) {	// 1 day
 		let dt = new Date(task.dt);
 		dt = `${String(dt.getDate()).padStart(2, '0')}-${String(dt.getMonth()+1).padStart(2, '0')}-${dt.getFullYear()}, ${days[dt.getDay()]}`;
-		let container = document.querySelector(`.container-overdue #d${dt}`) ?? dateElem(dt, document.querySelector('.container-overdue > .task-list'));
+		let container = document.querySelector(`.container-overdue .d${dt}`) ?? dateElem(dt, document.querySelector('.container-overdue > .task-list'));
 		container.append(div);
 	} else {
 		let dt = new Date(task.dt);
 		dt = `${String(dt.getDate()).padStart(2, '0')}-${String(dt.getMonth()+1).padStart(2, '0')}-${dt.getFullYear()}, ${days[dt.getDay()]}`;
-		let container = document.querySelector(`.container-upcoming #d${dt}`) ?? dateElem(dt, document.querySelector('.container-upcoming > .task-list'));
+		let container = document.querySelector(`.container-upcoming .d${dt}`) ?? dateElem(dt, document.querySelector('.container-upcoming > .task-list'));
 		container.append(div);
 	}
 
 	return div;
 }
 
+function appendInOrder(div, taskList) {
+	let d1 = div.classList[1];
+	d1 = d1.slice(7, 11) + d1.slice(4, 6) + d1.slice(1, 3);
+	let divs = taskList.children;
+	let i;
+	for (i = divs.length - 1; i > -1; i--) {
+		let d2 = divs[i].classList[1];
+		d2 = d2.slice(7, 11) + d2.slice(4, 6) + d2.slice(1, 3);
+		if (d1 > d2) {
+			divs[i].after(div);
+			break;
+		}
+	}
+	if (i === -1) {
+		taskList.prepend(div);
+	}
+}
+
 function dateElem(dateStr, taskList) {
 	let div = customElement({
 		tag: 'div',
-		className: 'pc-task-container',
-		id: 'd' + dateStr.slice(0, 10)
+		className: `pc-task-container d${dateStr.slice(0, 10)}`
 	});
 
-	div.addEventListener('change', () => {
-		if (div.children.length === 1) {
+	div.addEventListener('childRem', () => {
+		if (div.children.length === 2) {	// Called before .remove()
 			div.remove();
 		}
 	});
@@ -93,7 +110,7 @@ function dateElem(dateStr, taskList) {
 	});
 
 	div.append(_);
-	taskList.append(div);
+	appendInOrder(div, taskList);
 	return div;
 }
 
@@ -112,6 +129,7 @@ function schInp(date, dTask) {
 	inp.onchange = () => {
 		dTask.classList.toggle('vis');
 		dTask.dataset.dt = new Date(inp.value).getTime();
+		dTask.parentElement.dispatchEvent(new CustomEvent('childRem'));
 		dTask.remove();
 		renderTask(domElemToObj(dTask));
 		saveToServer();
@@ -128,6 +146,7 @@ function schInp(date, dTask) {
 function delBtn(dTask) {
 	let btn = customElement({ tag: 'button', innerText: 'Delete' });
 	btn.onclick = () => {
+		dTask.parentElement.dispatchEvent(new CustomEvent('childRem'));
 		dTask.remove();
 		saveToServer();
 	};
@@ -142,6 +161,7 @@ function checkBox(done, dTask) {
 		innerHTML: `<input type="checkbox" name="task" ${done ? 'checked' : ''}>`
 	});
 	check.onchange = () => {
+		dTask.parentElement.dispatchEvent(new CustomEvent('childRem'));
 		dTask.remove();
 		renderTask(domElemToObj(dTask));
 		saveToServer();
