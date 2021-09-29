@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request
+from flask.wrappers import Response
 from passlib.context import CryptContext
 import json
 import random
@@ -14,6 +15,10 @@ encryptor = CryptContext(
 def initAuthDB(dbObject):
 	global DB
 	DB = dbObject
+
+def initEmail(E):
+	global Email
+	Email = E
 
 @auth.route('/', methods=['GET', 'POST'])
 def logIn():
@@ -50,6 +55,13 @@ def signUp():
 			DB.registerUser(form)
 			return json.dumps({'userExists': False})
 
-def initEmail(E):
-	global Email
-	Email = E
+@auth.route('/logout', methods=['POST'])
+def logOut():
+	req = request.get_json()
+	token = req['token']
+	try:
+		Email.pop(token)
+	except:
+		return Response(status = 400)	
+	else:
+		return Response(status = 200)

@@ -33,6 +33,7 @@
 	</div>
 	<script>
 		document.getElementById('loginBtn').onclick = async () => {
+			document.getElementById('loginBtn').disabled = true;
 			const form = {
 				email: document.getElementById('email').value,
 				password: document.getElementById('pwd').value
@@ -40,9 +41,11 @@
 
 			if (!/\S+@\S+\.\w+/.test(form.email)) {
 				document.getElementById('message').innerText = 'Invalid email. Please try again.';
+				document.getElementById('loginBtn').removeAttribute('disabled');
 				return;
 			} else if (form.password.length < 8) {
 				document.getElementById('message').innerText = 'Invalid password. Please try again.';
+				document.getElementById('loginBtn').removeAttribute('disabled');
 				return;
 			}
 
@@ -58,8 +61,10 @@
 				window.location.replace('/home');
 			} else if (response.userExists) {
 				document.getElementById('message').innerText = 'Invalid password. Please try again.';
+				document.getElementById('loginBtn').removeAttribute('disabled');
 			} else {
 				document.getElementById('message').innerText = 'User with this email does not exist. Please try again.';
+				document.getElementById('loginBtn').removeAttribute('disabled');
 			}
 		};
 	</script>

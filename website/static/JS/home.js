@@ -220,6 +220,12 @@ async function saveToServer() {
 }
 
 function logOut() {
+	fetch('/auth/logout', {
+		method: 'POST',
+		body: JSON.stringify({'token': localStorage.getItem('token')}),
+		headers: { 'Content-type': 'application/json' }
+	});
+
 	localStorage.removeItem('token');
 	window.location.href = '/';
 }

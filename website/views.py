@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, Response
+from flask import Blueprint, render_template, request
 import json
 
 
@@ -44,7 +44,7 @@ def syncTasks():
 	email = Email.get(req['token'])
 	if email is not None:
 		DB.updateTasks(email, req['taskList'])
-		return Response(status=200)
+		return json.dumps({'logout': False})
 	else:
 		return json.dumps({'logout': True})
 
