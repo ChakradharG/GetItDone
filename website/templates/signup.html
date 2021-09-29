@@ -43,8 +43,10 @@
 
 	<script>
 		document.getElementById('signupBtn').onclick = async () => {
+			document.getElementById('signupBtn').setAttribute('disabled', true);
 			if (document.getElementById('pwd').value !== document.getElementById('pwd2').value) {
 				document.getElementById('message').innerText = 'Passwords don\'t match. Please try again.';
+				document.getElementById('signupBtn').removeAttribute('disabled');
 				return;
 			}
 
@@ -57,12 +59,16 @@
 
 			if (!/\S+@\S+\.\w+/.test(form.email)) {
 				document.getElementById('message').innerText = 'Invalid email. Please try again.';
+				document.getElementById('signupBtn').removeAttribute('disabled');
 				return;
 			} else if (form.password.length < 8) {
 				document.getElementById('message').innerText = 'Password should be at least 8 characters long. Please try again.';
+				document.getElementById('signupBtn').removeAttribute('disabled');
 				return;
 			} else if (fName === '' || lName === '') {
 				document.getElementById('message').innerText = 'Name can\'t be empty. Please try again.';
+				document.getElementById('signupBtn').removeAttribute('disabled');
+				return;
 			}
 
 			const validate = await fetch('/auth/signup', {
@@ -74,6 +80,7 @@
 			const response = await validate.json();
 			if (response.userExists) {
 				document.getElementById('message').innerText = 'Email already exists.';
+				document.getElementById('signupBtn').removeAttribute('disabled');
 			} else {
 				window.location.replace('/auth/');
 			}

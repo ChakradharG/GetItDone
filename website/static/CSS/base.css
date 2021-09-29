@@ -110,6 +110,11 @@ form > button:hover {
 	transition: .1s ease-out;
 }
 
+#loginBtn:disabled, #signupBtn:disabled {
+    pointer-events: none;
+    background: #9c9595;
+}
+
 .card-name {
 	text-align: center;
 }

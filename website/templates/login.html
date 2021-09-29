@@ -25,7 +25,7 @@
 					</div>
 					<span>Don't have an Account? <a href="./signup">Signup</a></span>
 					<br>
-					<button id="loginBtn" type="button">Login</button>
+					<button id="loginBtn" type="button" disabled>Login</button>
 				</form>
 				<span id="message"></span>
 			</div>
@@ -33,7 +33,7 @@
 	</div>
 	<script>
 		document.getElementById('loginBtn').onclick = async () => {
-			document.getElementById('loginBtn').disabled = true;
+			document.getElementById('loginBtn').setAttribute('disabled', true);
 			const form = {
 				email: document.getElementById('email').value,
 				password: document.getElementById('pwd').value
