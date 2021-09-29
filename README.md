@@ -1,5 +1,5 @@
 # GetItDone
-...
+A modern ToDO List app that segregates your todos into Upcoming, Overdue and Completed depending upon the date the todo was scheduled for.
 
 <br>
 
