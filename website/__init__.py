@@ -1,7 +1,7 @@
 from flask import Flask
 import json
-from .views import views, initViewDB
-from .auth import auth, initAuthDB
+from .views import views, initViewDB, Email
+from .auth import auth, initAuthDB, initEmail
 from .models import DataBaseHelpers
 
 
@@ -17,3 +17,4 @@ app.register_blueprint(auth, url_prefix='/auth')
 
 initViewDB(dbObject)
 initAuthDB(dbObject)
+initEmail(Email)

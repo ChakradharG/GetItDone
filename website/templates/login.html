@@ -3,7 +3,7 @@
 {% block head %}
 	<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>	
 	<script>
-		if (localStorage.getItem('email')) { window.location.href = '/home' }
+		if (localStorage.getItem('token')) { window.location.href = '/home' }
 	</script>
 {% endblock %}
 {% block body %}
@@ -54,7 +54,7 @@
 
 			const response = await validate.json();
 			if (response.pwdValid) {
-				localStorage.setItem('email', form.email);
+				localStorage.setItem('token', response.token);
 				window.location.replace('/home');
 			} else if (response.userExists) {
 				document.getElementById('message').innerText = 'Invalid password. Please try again.';

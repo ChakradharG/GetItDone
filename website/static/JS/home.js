@@ -3,22 +3,28 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 (async () => {
 	const response = await fetch('/getuser', {
 		method: 'POST',
-		body: JSON.stringify({'email': localStorage.getItem('email')}),
+		body: JSON.stringify({'token': localStorage.getItem('token')}),
 		headers: { 'Content-type': 'application/json' }
 	});
 
 	let name = await response.json();
+	if (name.logout) {
+		logOut();
+	}
 	document.querySelector('#greet-user').innerText = `Hey there, ${name}`;
 })();
 
 (async () => {
 	const response = await fetch('/gettasks', {
 		method: 'POST',
-		body: JSON.stringify({'email': localStorage.getItem('email')}),
+		body: JSON.stringify({'token': localStorage.getItem('token')}),
 		headers: { 'Content-type': 'application/json' }
 	});
 
 	let tasks = await response.json();
+	if (tasks.logout) {
+		logOut();
+	}
 	tasks.sort((t1, t2) => { return (t1.dt - t2.dt) });
 	tasks.forEach(renderTask);
 })();
@@ -198,17 +204,22 @@ function domElemToObj(elem) {
 	};
 }
 
-function saveToServer() {
+async function saveToServer() {
 	let tasks = Array.from(document.querySelectorAll('.task')).map(domElemToObj);
 
-	fetch('/synctasks', {
+	let response = await fetch('/synctasks', {
 		method: 'POST',
-		body: JSON.stringify({'email': localStorage.getItem('email'), 'taskList': tasks}),
+		body: JSON.stringify({'token': localStorage.getItem('token'), 'taskList': tasks}),
 		headers: { 'Content-type': 'application/json' }
 	});
+	response = await response.json();
+
+	if (response.logout) {
+		logOut();
+	}
 }
 
 function logOut() {
-	localStorage.removeItem('email');
+	localStorage.removeItem('token');
 	window.location.href = '/';
 }

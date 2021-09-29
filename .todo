@@ -2,5 +2,4 @@
 [] <ADD> LICENSE
 [] <ADD> Dependencies
 [] <UPDATE> README
-[] <C> auth logic/session management
-[] <H> navbar, list clipping, div#message in login/signup page, increase font weight, logo
+[] <H> navbar, list clipping, div#message in login/signup page, increase font weight, logo, dark theme

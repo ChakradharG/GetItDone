@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request
 from passlib.context import CryptContext
 import json
+import random
+import string
 
 
 auth = Blueprint('auth', __name__)
@@ -12,8 +14,6 @@ encryptor = CryptContext(
 def initAuthDB(dbObject):
 	global DB
 	DB = dbObject
-
-# encryptor.hash(password)
 
 @auth.route('/', methods=['GET', 'POST'])
 def logIn():
@@ -30,7 +30,12 @@ def logIn():
 			# When the email doesn't exist
 			return json.dumps({'userExists': False, 'pwdValid': False})
 		else:
-			return json.dumps({'userExists': True, 'pwdValid': pwdValid})
+			if pwdValid:
+				token = ''.join(random.choices(string.ascii_letters + string.digits + string.punctuation, k = 27))
+				Email[token] = form['email']
+				return json.dumps({'userExists': True, 'pwdValid': True, 'token': token})
+			else:
+				return json.dumps({'userExists': True, 'pwdValid': False})
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signUp():
@@ -44,3 +49,7 @@ def signUp():
 			form['password'] = encryptor.hash(form['password'])
 			DB.registerUser(form)
 			return json.dumps({'userExists': False})
+
+def initEmail(E):
+	global Email
+	Email = E

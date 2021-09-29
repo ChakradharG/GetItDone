@@ -4,6 +4,8 @@ import json
 
 views = Blueprint('views', __name__)
 
+Email = {}
+
 def initViewDB(dbObject):
 	global DB
 	DB = dbObject
@@ -19,7 +21,7 @@ def tasksToJSON(email):
 def landing():
 	return '''
 		<script>
-			localStorage.getItem('email') ? window.location.replace('/home') : window.location.replace('/auth');
+			localStorage.getItem('token') ? window.location.replace('/home') : window.location.replace('/auth');
 		</script>
 	'''
 
@@ -30,16 +32,28 @@ def home():
 @views.route('/gettasks', methods=['POST'])
 def getTasks():
 	req = request.get_json()
-	return tasksToJSON(req['email'])
+	email = Email.get(req['token'])
+	if email is not None:
+		return tasksToJSON(email)
+	else:
+		return json.dumps({'logout': True})
 
 @views.route('/synctasks', methods=['POST'])
 def syncTasks():
 	req = request.get_json()
-	DB.updateTasks(req['email'], req['taskList'])
-	return Response(status=200)
+	email = Email.get(req['token'])
+	if email is not None:
+		DB.updateTasks(email, req['taskList'])
+		return Response(status=200)
+	else:
+		return json.dumps({'logout': True})
 
 @views.route('/getuser', methods=['POST'])
 def getUser():
 	req = request.get_json()
-	user = DB.getUserDetails(req['email'])
-	return json.dumps(user['fName'])
+	email = Email.get(req['token'])
+	if email is not None:
+		user = DB.getUserDetails(email)
+		return json.dumps(user['fName'])
+	else:
+		return json.dumps({'logout': True})
