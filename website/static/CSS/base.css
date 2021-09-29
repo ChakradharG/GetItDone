@@ -26,6 +26,18 @@ body {
 	font-family: 'Poppins';
 }
 
+@media only screen and (max-width: 750px) {
+	.base-container {
+		flex-basis: 75%;
+	}
+}
+
+@media only screen and (max-width: 450px) {
+	.base-container {
+		flex-basis: 90%;
+	}
+}
+
 .login-img {
 	height: 100%;
 	width: 100%;

@@ -97,6 +97,8 @@ nav {
 	height: 100%;
 	background-color: #F0EDF4;
 	border-radius: 12px;
+	height: 875px;
+	position: relative;
 }
 
 .heading {
@@ -131,8 +133,13 @@ hr {
 
 .task-list {
 	padding: 10px 20px;
-	overflow-y: scroll;
-	max-height: 550px;
+	overflow: scroll;
+	position: absolute;
+	inset: 40px 0 10px 0;
+}
+
+.diff {
+	top: 120px;
 }
 
 .task {
